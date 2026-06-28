@@ -1,0 +1,26 @@
+layout {
+    default_tab_template {
+        // نوار تب‌های بالای صفحه (با ظاهر رنگی و جذاب)
+        pane size=1 borderless=true {
+            plugin location="file:/home/ali/.config/zellij/plugins/zjstatus.wasm" {
+                format_left  "{tabs}"
+                format_right ""
+                format_space ""
+
+                // استایل تب‌های غیرفعال (رنگ خاکستری با فلش)
+                tab_normal   "#[bg=#6C7086,fg=#181825] {index} {name} #[bg=default,fg=#6C7086]"
+                
+                // استایل تب فعال (رنگ سبز روشن با فلش)
+                tab_active   "#[bg=#A6E3A1,fg=#181825,bold] {index} {name} #[bg=default,fg=#A6E3A1]"
+            }
+        }
+        
+        // فضای اصلی ترمینال شما
+        children
+        
+        // نوار راهنمای میانبرها در پایین صفحه
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+}
