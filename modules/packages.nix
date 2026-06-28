@@ -37,15 +37,15 @@
     iperf3
     wireguard-tools
 
-    ## X11 / clipboard
-    xclip
-    xdotool
+    ## Wayland / clipboard
+    wl-clipboard
+    wlr-randr
+    grim
+    slurp
+    wlogout
     xorg.setxkbmap
-    xorg.xrandr
-    xorg.xsetroot
-    maim
-    slop
-    nitrogen
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
 
     ## Shell
     oh-my-posh
@@ -64,12 +64,10 @@
     ## Misc
     obsidian
     libnotify
-    dunst
     playerctl
     pavucontrol
     pulseaudio
     brightnessctl
-    betterlockscreen
 
     ## System
     dbus
@@ -78,4 +76,9 @@
     gawk
     which
   ];
+
+  ## ── GTK shell integration (GTK runs via Wayland) ───────────────────
+  home.sessionVariables = {
+    GTK_THEME = "Adwaita-dark";
+  };
 }

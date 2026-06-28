@@ -10,19 +10,22 @@
     adwaita-icon-theme
     papirus-icon-theme
 
-    ## Desktop utilities
-    feh
-    i3lock
-    xss-lock
-    betterlockscreen
+    ## Wayland desktop
+    swaybg
+    swaylock
+    swayidle
+    wofi
+    waybar
+    mako
+    wl-clipboard
+    wlr-randr
+    grim
+    slurp
+    wlogout
     networkmanagerapplet
     dex
-    nitrogen
-    xfce.xfce4-panel
     xfce.thunar
     xfce.xfce4-terminal
-    xfce.xfce4-whiskermenu-plugin
-    picom
   ];
 
   gtk = {
@@ -61,37 +64,6 @@
       After = [ "graphical-session-pre.target" ];
     };
   };
-
-  ## ── betterlockscreen ──────────────────────────────────────────────
-  xdg.configFile."betterlockscreen/betterlockscreenrc".text = ''
-    font="sans-serif"
-    ringcolor=ffffffff
-    insidecolor=00000000
-    keyhlcolor=d8dee9ff
-    bshlcolor=d8dee9ff
-    separatorcolor=00000000
-    insidevercolor=00000000
-    insidewrongcolor=00000000
-    ringvercolor=88c0d0ff
-    ringwrongcolor=bf616aff
-    loginbox=00000066
-  '';
-
-  ## ── nitrogen (Wallpaper Manager) ──────────────────────────────────
-  xdg.configFile."nitrogen/nitrogen.cfg".text = ''
-    [geometry]
-    posx=960
-    posy=18
-    sizex=956
-    sizey=1041
-
-    [nitrogen]
-    view=icon
-    recurse=true
-    sort=alpha
-    icon_caps=false
-    dirs=
-  '';
 
   ## ── XFCE4 Terminal ────────────────────────────────────────────────
   xdg.configFile."xfce4/terminal/terminalrc".text = ''
