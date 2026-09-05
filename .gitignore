@@ -1,0 +1,32 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+*.secret
+secrets.nix
+secrets.yaml
+secrets.yml
+
+# SSH and credentials
+.ssh/
+*.pem
+*.key
+id_rsa
+id_ed25519
+known_hosts
+
+# Local Nix / Home Manager state
+.direnv/
+result
+result-*
+
+# Editors / OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Local machine-specific overrides
+local.nix
+hardware-configuration.nix
