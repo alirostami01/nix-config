@@ -13,27 +13,18 @@
       up = "k";
       right = "l";
       keybindings = {
-        ## ── Applications ──────────────────────────────────────────────
         "${modifier}+Return" = "exec kitty";
         "${modifier}+d" = "exec wofi --show drun";
         "${modifier}+Shift+q" = "kill";
-
-        ## ── Screenshot ────────────────────────────────────────────────
         "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
         "Shift+Print" = "exec grim - | wl-copy";
-
-        ## ── Lock & Power ──────────────────────────────────────────────
-        "${modifier}+Shift+l" = "exec swaylock -f -i /home/ali/Pictures/wallpaper/1.png";
+        "${modifier}+Shift+l" = "exec swaylock -f -i ${config.home.homeDirectory}/Pictures/wallpaper/1.png";
         "${modifier}+x" = "exec wofi --show power";
-
-        ## ── Layout ────────────────────────────────────────────────────
         "${modifier}+Shift+space" = "floating toggle";
         "${modifier}+space" = "focus mode_toggle";
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+Shift+v" = "split vertical";
         "${modifier}+Shift+h" = "split horizontal";
-
-        ## ─S─ Navigation ───────────────────────────────────────────────
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
@@ -42,8 +33,6 @@
         "${modifier}+Down" = "focus down";
         "${modifier}+Up" = "focus up";
         "${modifier}+Right" = "focus right";
-
-        ## ── Move windows ──────────────────────────────────────────────
         "${modifier}+Shift+h" = "move left";
         "${modifier}+Shift+j" = "move down";
         "${modifier}+Shift+k" = "move up";
@@ -52,8 +41,6 @@
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Up" = "move up";
         "${modifier}+Shift+Right" = "move right";
-
-        ## ── Workspaces ────────────────────────────────────────────────
         "${modifier}+1" = "workspace number 1";
         "${modifier}+2" = "workspace number 2";
         "${modifier}+3" = "workspace number 3";
@@ -64,26 +51,16 @@
         "${modifier}+Shift+3" = "move container to workspace number 3";
         "${modifier}+Shift+4" = "move container to workspace number 4";
         "${modifier}+Shift+5" = "move container to workspace number 5";
-
-        ## ── Layouts ───────────────────────────────────────────────────
         "${modifier}+s" = "layout stacking";
         "${modifier}+w" = "layout tabbed";
         "${modifier}+e" = "layout toggle split";
-
-        ## ── Resize mode ───────────────────────────────────────────────
         "${modifier}+r" = "mode resize";
-
-        ## ── Reload ────────────────────────────────────────────────────
         "${modifier}+Shift+r" = "restart";
         "${modifier}+Shift+e" = "exit";
-
-        ## ── Audio ─────────────────────────────────────────────────────
         "XF86AudioRaiseVolume" = "exec amixer -D pulse sset Master 5%+";
         "XF86AudioLowerVolume" = "exec amixer -D pulse sset Master 5%-";
         "XF86AudioMute" = "exec amixer -D pulse sset Master toggle";
         "XF86AudioMicMute" = "exec amixer -D pulse sset Capture toggle";
-
-        ## ── Brightness ────────────────────────────────────────────────
         "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
       };
@@ -113,25 +90,19 @@
       startup = [
         { command = "dex --autostart --environment sway"; always = false; }
         { command = "nm-applet --indicator"; always = false; }
-        { command = "swaybg -i /home/ali/Pictures/wallpaper/windmill_clouds.png -m fill"; always = true; }
-        { command = "swayidle -w timeout 300 'swaylock -f -i /home/ali/Pictures/wallpaper/1.png' timeout 600 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' before-sleep 'swaylock -f -i /home/ali/Pictures/wallpaper/1.png'"; always = true; }
+        { command = "swaybg -i ${config.home.homeDirectory}/Pictures/wallpaper/windmill_clouds.png -m fill"; always = true; }
+        { command = "swayidle -w timeout 300 'swaylock -f -i ${config.home.homeDirectory}/Pictures/wallpaper/1.png' timeout 600 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' before-sleep 'swaylock -f -i ${config.home.homeDirectory}/Pictures/wallpaper/1.png'"; always = true; }
         { command = "setxkbmap -layout us,ir -option grp:win_space_toggle"; always = true; }
         { command = "mako"; always = false; }
       ];
     };
     extraConfig = ''
       default_border pixel 2
-
-      ## ── Input configuration ──────────────────────────────────────────
       input type:keyboard {
           xkb_layout us,ir
           xkb_options grp:win_space_toggle
       }
-
-      ## ── Gaps for individual windows ──────────────────────────────────
       for_window [app_id=".*"] border pixel 2
-
-      ## ── Resize mode ──────────────────────────────────────────────────
       mode "resize" {
           bindsym h resize shrink width 10 px
           bindsym j resize grow height 10 px
@@ -145,17 +116,12 @@
           bindsym Escape mode "default"
           bindsym $mod+r mode "default"
       }
-
-      ## ── Floating window settings ────────────────────────────────────
       floating_minimum_size 200x200
-
-      ## ── Smart gaps ───────────────────────────────────────────────────
       smart_gaps off
       smart_borders off
     '';
   };
 
-  ## ── Waybar (Status Bar) ─────────────────────────────────────────────
   programs.waybar = {
     enable = true;
     settings = {
@@ -167,12 +133,8 @@
         modules-left = [ "sway/workspaces" "sway/mode" "sway/scratchpad" ];
         modules-center = [ "sway/window" ];
         modules-right = [ "custom/kblayout" "pulseaudio" "network" "cpu" "memory" "clock" "tray" ];
-        "sway/workspaces" = {
-          all-outputs = true;
-        };
-        "sway/window" = {
-          max-length = 80;
-        };
+        "sway/workspaces" = { all-outputs = true; };
+        "sway/window" = { max-length = 80; };
         "custom/kblayout" = {
           exec = "swaymsg -t get_inputs | jq -r '.[] | select(.type == \"keyboard\") | .xkb_active_layout_name' | head -1";
           interval = 1;
@@ -190,56 +152,19 @@
           format-disconnected = "❌ Disconnected";
           tooltip = false;
         };
-        "cpu" = {
-          format = " {usage}%";
-        };
-        "memory" = {
-          format = "RAM:{percentage}%";
-        };
-        "clock" = {
-          format = "{:%Y-%m-%d  %H:%M:%S}";
-          tooltip = false;
-        };
-        "tray" = {
-          spacing = 8;
-        };
+        "cpu" = { format = " {usage}%"; };
+        "memory" = { format = "RAM:{percentage}%"; };
+        "clock" = { format = "{:%Y-%m-%d  %H:%M:%S}"; tooltip = false; };
+        "tray" = { spacing = 8; };
       };
     };
     style = ''
-      * {
-          border: none;
-          border-radius: 0;
-          font-family: "DejaVu Sans Mono", "FontAwesome";
-          font-size: 13px;
-          min-height: 0;
-      }
-
-      window#waybar {
-          background: #2E3440;
-          color: #D8DEE9;
-      }
-
-      #workspaces button {
-          padding: 0 5px;
-          background: #3B4252;
-          color: #D8DEE9;
-      }
-
-      #workspaces button.focused {
-          background: #5E81AC;
-          color: #E5E9F0;
-      }
-
-      #workspaces button.urgent {
-          background: #BF616A;
-          color: #ECEFF4;
-      }
-
-      #clock, #cpu, #memory, #network, #pulseaudio, #custom-kblayout, #tray {
-          padding: 0 8px;
-          color: #D8DEE9;
-      }
-
+      * { border: none; border-radius: 0; font-family: "DejaVu Sans Mono", "FontAwesome"; font-size: 13px; min-height: 0; }
+      window#waybar { background: #2E3440; color: #D8DEE9; }
+      #workspaces button { padding: 0 5px; background: #3B4252; color: #D8DEE9; }
+      #workspaces button.focused { background: #5E81AC; color: #E5E9F0; }
+      #workspaces button.urgent { background: #BF616A; color: #ECEFF4; }
+      #clock, #cpu, #memory, #network, #pulseaudio, #custom-kblayout, #tray { padding: 0 8px; color: #D8DEE9; }
       #clock { color: #E5E9F0; }
       #cpu { color: #A3BE8C; }
       #memory { color: #EBCB8B; }
@@ -249,7 +174,6 @@
     '';
   };
 
-  ## ── Notification Daemon ─────────────────────────────────────────────
   services.mako = {
     enable = true;
     backgroundColor = "#2E3440";
@@ -267,10 +191,8 @@
     extraConfig = ''
       [urgency=low]
       background=#3B4252
-
       [urgency=normal]
       background=#434C5E
-
       [urgency=high]
       background=#BF616A
       border-color=#BF616A
@@ -278,34 +200,20 @@
     '';
   };
 
-  ## ── Screenshot Script ──────────────────────────────────────────────
   home.file.".local/bin/sway-screenshot" = {
     executable = true;
     text = ''
       #!/usr/bin/env bash
       set -e
       case "''${1:-}" in
-          area)
-              grim -g "$(slurp)" - | wl-copy
-              notify-send "Screenshot" "Area captured to clipboard"
-              ;;
-          screen)
-              grim - | wl-copy
-              notify-send "Screenshot" "Screen captured to clipboard"
-              ;;
-          window)
-              grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy
-              notify-send "Screenshot" "Window captured to clipboard"
-              ;;
-          *)
-              echo "Usage: $0 {area|screen|window}"
-              exit 1
-              ;;
+          area) grim -g "$(slurp)" - | wl-copy; notify-send "Screenshot" "Area captured to clipboard" ;;
+          screen) grim - | wl-copy; notify-send "Screenshot" "Screen captured to clipboard" ;;
+          window) grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy; notify-send "Screenshot" "Window captured to clipboard" ;;
+          *) echo "Usage: $0 {area|screen|window}"; exit 1 ;;
       esac
     '';
   };
 
-  ## ── Power Menu Script (for wofi) ───────────────────────────────────
   home.file.".local/bin/sway-power" = {
     executable = true;
     text = ''
@@ -313,7 +221,7 @@
       entries="Lock\nLogout\nReboot\nShutdown\nSleep"
       selected=$(echo -e "$entries" | wofi --dmenu --prompt "Power Menu" --width 200 --height 200)
       case $selected in
-          Lock) swaylock -f -i /home/ali/Pictures/wallpaper/1.png ;;
+          Lock) swaylock -f -i ${config.home.homeDirectory}/Pictures/wallpaper/1.png ;;
           Logout) swaymsg exit ;;
           Reboot) systemctl reboot ;;
           Shutdown) systemctl poweroff ;;
@@ -322,7 +230,6 @@
     '';
   };
 
-  ## ── Keyboard Layout Toggle Script (for waybar exec) ────────────────
   home.file.".local/bin/sway-toggle-lang" = {
     executable = true;
     text = ''
@@ -331,7 +238,6 @@
     '';
   };
 
-  ## ── GTK key theme (Wayland-native clipboard) ───────────────────────
   home.sessionVariables = {
     XCURSOR_THEME = "Adwaita";
     XCURSOR_SIZE = "24";
